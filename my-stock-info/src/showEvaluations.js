@@ -1,8 +1,4 @@
 import React, { Component } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
 import { withStyles } from "@material-ui/core/styles";
 import { Alert, AlertTitle } from '@material-ui/lab';
 
@@ -74,10 +70,6 @@ class Stock extends Component {
     var time = {};
     time = getInfos.getDate(this.state.list_type);
 
-    //抓取當天日期
-    var s_time = time.start; //起始時間
-    var e_time = time.end; //截止時間
-
     //取得編號部分
     if (typeof (stock_no) === "undefined") {
       return;
@@ -87,8 +79,7 @@ class Stock extends Component {
     if (ls_tmp.indexOf("(", 0) > 0) {
       stock_no = ls_tmp.substr(0, ls_tmp.indexOf("(", 0));
     }
-    //console.log("this.props.no:" + this.props.no);
-    //console.log("this.props.name:" + this.props.name);
+
     switch (type) {
       case "getEvaluations":
         //刷新營收
@@ -326,7 +317,6 @@ class Stock extends Component {
   }
 
   render() {
-    const { classes } = this.props;
     return (
       <div >
         {this.state.ev_list}

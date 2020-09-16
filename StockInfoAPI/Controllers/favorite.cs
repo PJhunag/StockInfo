@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
-using System.Web.Http.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
 using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
 
@@ -26,8 +23,6 @@ namespace StockInfoAPI.Controllers {
             ControllerContext.HttpContext.Response.Headers.Add ("Access-Control-Allow-Origin", "*");
             ControllerContext.HttpContext.Response.Headers.Add ("Access-Control-Allow-Headers", "Content-Type");
             ControllerContext.HttpContext.Response.Headers.Add ("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-
-            Console.WriteLine ("aaa:" + type);
 
             string rtn = "";
             switch (type) {

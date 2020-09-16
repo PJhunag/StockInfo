@@ -211,8 +211,7 @@ class Main extends Component {
   constructor() {
     super()
 
-    var ls_stock_list = new Array()
-    var url = "/getStockList/0";
+    var ls_stock_list = [];
 
     this.state = {
       open: true,
@@ -423,8 +422,10 @@ class Main extends Component {
 
     // console.log('即將開啟(' + no+')股票資訊!')
     //指定no
-    this.setState(state => ({ no: stock.id }));
-    this.setState(state => ({ desc: stock.name }));
+    this.setState(state => ({ no: stock.id,desc: stock.name,favorited:true }));
+    stock_no = stock.id;
+    stock_desc = stock.name;
+    
     //刷新股票資訊
     this.handleChange_getStockPrices();
   }
@@ -437,19 +438,6 @@ class Main extends Component {
 
   //控制是否顯示title
   handleChange_wheel(event) {
-    /*     var delta = event.deltaY;
-        console.log(delta)
-        if (delta == "100") {
-          //往下滾動, 隱藏選單
-          //this.setState(state => ({ show_title:false}));
-          $('title').removeClass('header-down').addClass('header-up');
-        }
-        else {
-          //往上滾動, 顯示選單
-          //this.setState(state => ({ show_title:true}));
-          $('title').removeClass('header-up').addClass('header-down');
-        } */
-
     var header = new Headroom(document.querySelector("#header"), {
       tolerance: 5,
       offset: 205,
@@ -691,8 +679,8 @@ class Main extends Component {
                   <FormControlLabel control={<Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />} checked={this.state.favorited} />}
                     label="收藏" onChange={this.setFavorite} />
                 </p>}
-              {this.state.show_stockCharts && <StockCharts name={this.state.choice_name} desc={this.state.choice_desc} user={this.state.user} no={this.state.no} desc={this.state.desc} />}
-              {this.state.show_stockTables && <StockTables name={this.state.choice_name} desc={this.state.choice_desc} user={this.state.user} no={this.state.no} desc={this.state.desc} />}
+              {this.state.show_stockCharts && <StockCharts name={this.state.choice_name} desc={this.state.choice_desc} user={this.state.user} no={this.state.no} no_desc={this.state.desc} />}
+              {this.state.show_stockTables && <StockTables name={this.state.choice_name} desc={this.state.choice_desc} user={this.state.user} no={this.state.no} no_desc={this.state.desc} />}
               {this.state.show_stockEvaluations && <StockEvaluations name={this.state.choice_name} desc={this.state.choice_desc} user={this.state.user} no={this.state.no} desc={this.state.desc} />}
               {this.state.show_favorite && this.state.favorite}
             </div>

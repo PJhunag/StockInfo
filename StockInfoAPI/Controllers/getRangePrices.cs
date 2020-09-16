@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
-using Newtonsoft.Json;
 
 namespace StockInfoAPI.Controllers {
     [ApiController]

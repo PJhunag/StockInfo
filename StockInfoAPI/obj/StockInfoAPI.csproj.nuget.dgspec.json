@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "F:\\VS\\object\\StockInfoAPI\\StockInfoAPI.csproj": {}
+    "F:\\VS\\object\\StockInfo\\StockInfoAPI\\StockInfoAPI.csproj": {}
   },
   "projects": {
-    "F:\\VS\\object\\StockInfoAPI\\StockInfoAPI.csproj": {
+    "F:\\VS\\object\\StockInfo\\StockInfoAPI\\StockInfoAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\VS\\object\\StockInfoAPI\\StockInfoAPI.csproj",
+        "projectUniqueName": "F:\\VS\\object\\StockInfo\\StockInfoAPI\\StockInfoAPI.csproj",
         "projectName": "StockInfoAPI",
-        "projectPath": "F:\\VS\\object\\StockInfoAPI\\StockInfoAPI.csproj",
+        "projectPath": "F:\\VS\\object\\StockInfo\\StockInfoAPI\\StockInfoAPI.csproj",
         "packagesPath": "C:\\Users\\Tree\\.nuget\\packages\\",
-        "outputPath": "F:\\VS\\object\\StockInfoAPI\\obj\\",
+        "outputPath": "F:\\VS\\object\\StockInfo\\StockInfoAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"

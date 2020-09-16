@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -46,10 +45,6 @@ var stock_no;
 var preNo;
 var preChoice;
 
-function createTable(column0, column1, column2, column3, column4, column5, column6, column7, column8) {
-  return { column0, column1, column2, column3, column4, column5, column6, column7, column8 };
-}
-
 var tableList = [];
 
 class Stock extends Component {
@@ -63,33 +58,17 @@ class Stock extends Component {
     Stock.getDerivedStateFromProps = Stock.getDerivedStateFromProps.bind(this);
   }
 
+  static getDerivedStateFromProps(prevProps, prevState) {
 
-
-  /*   componentWillReceiveProps(nextProps) {//componentWillReceiveProps方法中第一个参数代表即将传入的新的Props
-           console.log("刷新表格!")
-          console.log("this.props.no:" + this.props.no)
-          console.log("nextProps.no:" + nextProps.no)
-          console.log("this.props.name:" + this.props.name)
-          console.log("nextProps.name:" + nextProps.name) 
-      //if (this.props.name !== nextProps.name || this.props.no !== stock_no) {
-      //狀態有異動時觸發刷新
-      //console.log("刷新表格!!!")
-      this.handleChange_show_table(nextProps.name);
-      //}
-    } */
-
-
-    static getDerivedStateFromProps(prevProps, prevState) {
-
-      if (preChoice != prevProps.name||preNo != prevProps.no) {
-        stock_no = prevProps.no;
-        console.log("現在處理:"+stock_no);
-        this.handleChange_show_table(prevProps.name);
-      }
-      preNo = prevProps.no;
-      preChoice = prevProps.name;
-      return null;
+    if (preChoice != prevProps.name || preNo != prevProps.no) {
+      stock_no = prevProps.no;
+      console.log("現在處理:" + stock_no);
+      this.handleChange_show_table(prevProps.name);
     }
+    preNo = prevProps.no;
+    preChoice = prevProps.name;
+    return null;
+  }
 
 
   async handleChange_show_table(type) {
@@ -98,13 +77,6 @@ class Stock extends Component {
     //stock_no = this.props.no;
     console.log("no:" + this.props.no);
     console.log("type:" + this.state.list_type);
-
-    var time = {};
-    time = getInfos.getDate(this.state.list_type);
-
-    //抓取當天日期
-    var s_time = time.start; //起始時間
-    var e_time = time.end; //截止時間
 
     //取得編號部分
     if (typeof (stock_no) === "undefined") {

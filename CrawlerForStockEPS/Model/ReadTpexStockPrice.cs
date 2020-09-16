@@ -84,7 +84,7 @@
                         newTpex.tpex005 = stockInfo[5].Replace ("\"", "");
                         newTpex.tpex006 = stockInfo[6].Replace ("\"", "");
                         newTpex.tpex007 = stockInfo[2].Replace ("\"", "");
-                        /* 
+                         
                                             Console.WriteLine ("Tpex001:" + newTpex.tpex001);
                                             Console.WriteLine ("Tpex002:" + newTpex.tpex002);
                                             Console.WriteLine ("Tpex003:" + newTpex.tpex003);
@@ -93,7 +93,7 @@
                                             Console.WriteLine ("Tpex006:" + newTpex.tpex006);
                                             Console.WriteLine ("Tpex007:" + newTpex.tpex007);
                                             Console.WriteLine ("Tpex008:" + newTpex.tpex008);
-                                            Console.WriteLine ("Tpex009:" + newTpex.tpex009); */
+                                            Console.WriteLine ("Tpex009:" + newTpex.tpex009); 
 
                         InsertToTpex (newTpex);
                     }
@@ -177,9 +177,14 @@
                 myCmd.Parameters.AddWithValue ("@Tpex006", numTrans (newTpex.tpex006));
                 myCmd.Parameters.AddWithValue ("@Tpex007", numTrans (newTpex.tpex007));
                 //沒有出現 --- 
-                if (newTpex.tpex007.IndexOf ("-", 0) == 0 && newTpex.tpex004.IndexOf ("-", 0) == 0) {
-                    newTpex.tpex008 = (Double.Parse (numTrans (newTpex.tpex007)) - Double.Parse (numTrans (newTpex.tpex004))).ToString ();
+                newTpex.tpex007 = numTrans (newTpex.tpex007);
+                newTpex.tpex004 = numTrans (newTpex.tpex004);
+                if (!string.IsNullOrEmpty (newTpex.tpex007) && !string.IsNullOrEmpty (newTpex.tpex004)) {
+                    newTpex.tpex008 = (Double.Parse (newTpex.tpex007) - Double.Parse (newTpex.tpex004)).ToString ();
                 }
+                Console.WriteLine("newTpex.tpex007:"+newTpex.tpex007);
+                Console.WriteLine("newTpex.tpex004:"+newTpex.tpex004);
+                Console.WriteLine("newTpex.tpex008:"+newTpex.tpex008);
                 myCmd.Parameters.AddWithValue ("@Tpex008", newTpex.tpex008);
                 myCmd.Parameters.AddWithValue ("@Tpex009", numTrans (newTpex.tpex009));
 
@@ -229,11 +234,15 @@
             //抓取Tpex_t最新資料到到當天-1的日期清單
             DateTime sTime = DateTime.Now.AddDays (-1);
             DateTime eTime;
-            if (DateTime.Now.Hour > 15) {
+
+            if (DateTime.Now.Hour >= 15) {
+                Console.WriteLine("抓今天");
                 eTime = DateTime.Now; //如果在下午三點前, 預設資料未出, 只抓到前一天
             } else {
+                Console.WriteLine("抓昨天");
                 eTime = DateTime.Now.AddDays (-1); //如果在下午三點後, 預設資料已出, 抓到當天為止
             }
+            
 
             // 進行select (取出有股利資料 但無EPS資料的清單, 區間為當年份)
             try {

@@ -1,6 +1,5 @@
 using System;
 using MySql.Data.MySqlClient;
-
 public class database {
 
     public MySqlConnection dbConect () {

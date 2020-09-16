@@ -1,15 +1,10 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import { withStyles } from "@material-ui/core/styles";
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import IconButton from '@material-ui/core/IconButton';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import NewWindow from 'react-new-window'
 
 //var account = require('./account.js')
 var CryptoJS = require("crypto-js");
@@ -37,58 +32,6 @@ const styles = theme => ({
         margin: `${theme.spacing.unit / 2}px ${theme.spacing.unit / 4}px`,
     },
 });
-
-//登入
-async function login(acc, pwd) {
-    //登入驗證
-    var url = url_server + "login";
-    console.log("url:" + url)
-
-    var infos = { "account": acc, "password": pwd };
-    var msg = { "msg": await encoder(infos) };
-    var res_msg = { "success": "", "msg": "" }
-
-    try {
-        var response = await axios.post(url, msg);
-        res_msg = { "success": response.data.success, "msg": response.data.msg }
-        var s_res_msg = JSON.stringify(res_msg)
-    }
-    catch (e) {
-        console.log(e); // Network Error
-        console.log(e.status); // undefined
-        console.log(e.code); // undefined
-    }
-    return s_res_msg;
-}
-
-//登出
-function logout() {
-
-}
-
-//註冊
-async function register(acc, pwd, mail, sex) {
-    //註冊驗證
-    var url = url_server + "register";
-    console.log("url:" + url)
-
-    var infos = { "account": acc, "password": pwd, "mail": mail, "sex": sex, };
-    var msg = { "msg": await encoder(infos) };
-
-    var res_msg = { "success": "", "msg": "" }
-
-    try {
-        var response = await axios.post(url, msg);
-        res_msg = { "success": response.data.success, "msg": response.data.msg }
-        var s_res_msg = JSON.stringify(res_msg)
-    }
-    catch (e) {
-        console.log(e); // Network Error
-        console.log(e.status); // undefined
-        console.log(e.code); // undefined
-    }
-    return s_res_msg;
-}
 
 //取得我的最愛
 async function favorite(acc) {
@@ -205,7 +148,6 @@ class Account extends Component {
         //開啟google第三方登入
         // for google oauth
         var google_client_id = "1043116507129-flcmle4rt4a4u9mdr11gf3eme7jrv86r.apps.googleusercontent.com";
-        var google_secret_id = "MA2QoMA1mWgewnb8V1Rac70v";
         var google_callback_url = "http://mystockbyth.ddns.net:5000/googleLogin/callback";
         var google_oauth_url = "https://accounts.google.com/o/oauth2/v2/auth?" +
             //Scope可以參考文件裡各式各樣的scope，可以貼scope url或是個別命名

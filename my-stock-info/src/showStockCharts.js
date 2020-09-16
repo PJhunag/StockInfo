@@ -1,17 +1,11 @@
 //react
 import React, { Component } from 'react';
 import ReactEcharts from 'echarts-for-react';
-import axios from 'axios';
-import classNames from 'classnames';
 import { emphasize } from '@material-ui/core/styles/colorManipulator';
 
 //material-ui
 import { withStyles } from "@material-ui/core/styles";
 import purple from '@material-ui/core/colors/purple';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import Chip from '@material-ui/core/Chip';
-import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -23,9 +17,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 
 //先準備相關資訊
-var instance = axios.create({
-  baseURL: 'http://114.33.59.86:5000'
-});
 var getInfos = require('./getStockInfo.js')
 var getFavotie = require('./favorite.js')
 
@@ -49,9 +40,6 @@ var line_chart_list = {
 
 var stock_no = "None"; //股票代碼
 var stock_desc = "None"; //股票說明
-
-//取得股票清單
-var stock_list = [];
 
 const styles = theme => ({
 
@@ -101,17 +89,6 @@ const styles = theme => ({
   },
 
 });
-function NoOptionsMessage(props) {
-  return (
-    <Typography
-      color="textSecondary"
-      className={props.selectProps.classes.noOptionsMessage}
-      {...props.innerProps}
-    >
-      {props.children}
-    </Typography>
-  );
-}
 
 class Stock extends Component {
   constructor(props) {
@@ -221,7 +198,6 @@ class Stock extends Component {
   };
 
   render() {
-    const { classes } = this.props;
     return (
       <div>
         {this.state.show_StockSelect &&

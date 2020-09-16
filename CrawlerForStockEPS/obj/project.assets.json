@@ -6056,11 +6056,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "f:\\VS\\object\\CrawlerForStockEPS\\CrawlerForStockEPS.csproj",
+      "projectUniqueName": "F:\\VS\\object\\StockInfo\\CrawlerForStockEPS\\CrawlerForStockEPS.csproj",
       "projectName": "CrawlerForStockEPS",
-      "projectPath": "f:\\VS\\object\\CrawlerForStockEPS\\CrawlerForStockEPS.csproj",
+      "projectPath": "F:\\VS\\object\\StockInfo\\CrawlerForStockEPS\\CrawlerForStockEPS.csproj",
       "packagesPath": "C:\\Users\\Tree\\.nuget\\packages\\",
-      "outputPath": "f:\\VS\\object\\CrawlerForStockEPS\\obj\\",
+      "outputPath": "F:\\VS\\object\\StockInfo\\CrawlerForStockEPS\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"

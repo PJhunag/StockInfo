@@ -1,9 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
 using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
-using Newtonsoft.Json;
 
 namespace StockInfoAPI.Controllers {
     [ApiController]
@@ -377,7 +374,7 @@ namespace StockInfoAPI.Controllers {
                 reader.Close ();
 
             } catch (MySql.Data.MySqlClient.MySqlException ex) {
-
+                Console.WriteLine(ex.Code);
             }
 
         }

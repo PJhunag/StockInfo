@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "phd+RX730VEjBq43PY4CNYoaVDt7yvfvt8VZHLZ8qi7AdYpAwHuOtkNB7brSwX0q/6Dvu1s2s0JLGjLMxKuUlg==",
+  "dgSpecHash": "5sctKoY75UPZpbrm+MOGuBw/lDL5AWY0LCGDZDPYTJsoWQmahQ+doTXVYL5AtbdHm6fiIy7CmBfDOKwDJq5VMQ==",
   "success": true,
-  "projectFilePath": "F:\\VS\\object\\StockInfoAPI\\StockInfoAPI.csproj",
+  "projectFilePath": "F:\\VS\\object\\StockInfo\\StockInfoAPI\\StockInfoAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Tree\\.nuget\\packages\\bouncycastle.netcore\\1.8.3\\bouncycastle.netcore.1.8.3.nupkg.sha512",
     "C:\\Users\\Tree\\.nuget\\packages\\google.protobuf\\3.6.1\\google.protobuf.3.6.1.nupkg.sha512",
