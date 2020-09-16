@@ -1,0 +1,60 @@
+.top{
+  float: top;
+  height:10%;
+  width: 100%;
+  background-color: rgb(176,196,222 );
+}
+.title{
+  margin-top:10px;
+  margin-left:20px;
+
+}
+.menu{
+  float: left;
+  height: 100%;
+  width: 17%;
+  margin-left:5%;
+  margin-right:20px;
+  margin-bottom:10px;
+  background-color: rgb(191, 211, 252);
+}
+.search {
+margin-top:20px;
+margin-left:20px;
+margin-right:20px;
+margin-bottom:10px;
+background-color:   rgb(175, 186, 240);
+color: rgb(0, 0, 0);
+}
+.sub_button{
+  background-color: rgb(212, 224, 248);
+}
+.parent{
+  margin-top:10px;
+  margin-left:2%;
+  margin-right:5%;
+  margin-bottom:10px;
+  overflow: hidden;
+background-color: rgb(191, 211, 252) ;
+}
+.child{
+  float: left;
+  width: calc(100% - 40px);
+  margin-top:10px;
+  margin-left:20px;
+  margin-right:20px;
+  margin-bottom:10px;
+background-color: #FFFFFF;
+}
+.radio{
+  float: left;
+  margin-top:5px;
+  margin-left:10px;
+  margin-right:10px;
+  margin-bottom:5px;
+}
+.card{
+  width: 100%;
+  height: 250px;
+  background-color: rgb(116, 158, 241);
+}
