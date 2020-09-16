@@ -14,22 +14,27 @@
             conn = dbconn;
             srcTable = src;
 
-            KDList = getList ();
+            while (true) {
+                MySqlTransaction transaction = conn.BeginTransaction ();
+                KDList = getList ();
 
-            int idx = 1;
-            foreach (KD newKD in KDList) {
-                Console.WriteLine (newKD.no + ":" + newKD.dt + " 開始計算 " + idx + "/" + KDList.Count);
-                idx += 1;
+                int idx = 1;
+                foreach (KD newKD in KDList) {
+                    Console.WriteLine (newKD.no + ":" + newKD.dt + " 開始計算 " + idx + "/" + KDList.Count);
+                    idx += 1;
 
-                //日KD(range=9,target=twse010,twse011,twse012)
-                getKD (newKD, 9, "twse010", "twse011", "twse012");
+                    //日KD(range=9,target=twse010,twse011,twse012)
+                    getKD (newKD, 9, "twse010", "twse011", "twse012");
 
-                //週KD(range=63,target=twse013,twse014,twse015)
-                //getKD (newKD, 63, "twse013", "twse014", "twse015");
+                    //週KD(range=63,target=twse013,twse014,twse015)
+                    //getKD (newKD, 63, "twse013", "twse014", "twse015");
 
-                //月KD(range=270,target=twse016,twse017,twse018)
-                //getKD (newKD, 270, "twse016", "twse017", "twse018");
-                //return;
+                    //月KD(range=270,target=twse016,twse017,twse018)
+                    //getKD (newKD, 270, "twse016", "twse017", "twse018");
+                    //return;
+                }
+
+                transaction.Commit ();
             }
         }
 
@@ -39,7 +44,7 @@
             // 先取出需要處理的清單
             try {
 
-                string StrSQL = "select twse001,twse002 from twse_t where twse010 is null and twse001 <> '0000' order by twse001,twse002 limit 200000 ";
+                string StrSQL = "select twse001,twse002 from twse_t where twse010 is null and twse001 <> '0000' order by twse001,twse002 limit 10000 ";
                 MySqlCommand myCmd = new MySqlCommand (StrSQL, conn);
                 MySqlDataReader reader = myCmd.ExecuteReader (); //execure the reader
                 while (reader.Read ()) {
@@ -181,12 +186,12 @@
             try {
 
                 string StrSQL = "update twse_t set " + RSV + "=?RSV, " + K + "=?K, " + D + "=?D where twse001 = ?twse001 and twse002 = ?twse002 ";
-/*                 Console.WriteLine (StrSQL);
-                Console.WriteLine ("twse001:" + newKD.no);
-                Console.WriteLine ("twse002:" + newKD.dt);
-                Console.WriteLine ("newKD.RSV:" + newKD.RSV);
-                Console.WriteLine ("newKD.K:" + newKD.K);
-                Console.WriteLine ("newKD.D:" + newKD.D); */
+                /*                 Console.WriteLine (StrSQL);
+                                Console.WriteLine ("twse001:" + newKD.no);
+                                Console.WriteLine ("twse002:" + newKD.dt);
+                                Console.WriteLine ("newKD.RSV:" + newKD.RSV);
+                                Console.WriteLine ("newKD.K:" + newKD.K);
+                                Console.WriteLine ("newKD.D:" + newKD.D); */
                 MySqlCommand myCmd = new MySqlCommand (StrSQL, conn);
 
                 myCmd.Parameters.AddWithValue ("@twse001", newKD.no);

@@ -85,7 +85,7 @@
                         newTpex.tpex006 = stockInfo[6].Replace ("\"", "");
                         newTpex.tpex007 = stockInfo[2].Replace ("\"", "");
                          
-                                            Console.WriteLine ("Tpex001:" + newTpex.tpex001);
+/*                                             Console.WriteLine ("Tpex001:" + newTpex.tpex001);
                                             Console.WriteLine ("Tpex002:" + newTpex.tpex002);
                                             Console.WriteLine ("Tpex003:" + newTpex.tpex003);
                                             Console.WriteLine ("Tpex004:" + newTpex.tpex004);
@@ -93,7 +93,7 @@
                                             Console.WriteLine ("Tpex006:" + newTpex.tpex006);
                                             Console.WriteLine ("Tpex007:" + newTpex.tpex007);
                                             Console.WriteLine ("Tpex008:" + newTpex.tpex008);
-                                            Console.WriteLine ("Tpex009:" + newTpex.tpex009); 
+                                            Console.WriteLine ("Tpex009:" + newTpex.tpex009);  */
 
                         InsertToTpex (newTpex);
                     }
@@ -182,9 +182,9 @@
                 if (!string.IsNullOrEmpty (newTpex.tpex007) && !string.IsNullOrEmpty (newTpex.tpex004)) {
                     newTpex.tpex008 = (Double.Parse (newTpex.tpex007) - Double.Parse (newTpex.tpex004)).ToString ();
                 }
-                Console.WriteLine("newTpex.tpex007:"+newTpex.tpex007);
+/*                 Console.WriteLine("newTpex.tpex007:"+newTpex.tpex007);
                 Console.WriteLine("newTpex.tpex004:"+newTpex.tpex004);
-                Console.WriteLine("newTpex.tpex008:"+newTpex.tpex008);
+                Console.WriteLine("newTpex.tpex008:"+newTpex.tpex008); */
                 myCmd.Parameters.AddWithValue ("@Tpex008", newTpex.tpex008);
                 myCmd.Parameters.AddWithValue ("@Tpex009", numTrans (newTpex.tpex009));
 

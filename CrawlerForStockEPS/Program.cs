@@ -25,14 +25,14 @@ namespace CrawlerForStockEPS {
             }
             Console.WriteLine ("此次依據來源為:" + src);
  
-             //抓取上市價格(固定抓取)
+/*              //抓取上市價格(固定抓取)
             Console.WriteLine ("開始抓每日(上市)價格......");
             ReadTwseStockPrice getTWSEprice = new ReadTwseStockPrice (conn, src);
 
             //抓取上櫃價格(固定抓取)
             Console.WriteLine ("------------------------------------------------------------------------------");
             Console.WriteLine ("開始抓每日(上櫃)價格......");
-            ReadTpexStockPrice getTPEXprice = new ReadTpexStockPrice (conn, src);
+            ReadTpexStockPrice getTPEXprice = new ReadTpexStockPrice (conn, src); */
 
             //抓取EPS
             if (type == "ALL" || type == "EPS") {
