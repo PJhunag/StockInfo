@@ -14,6 +14,9 @@ public class parameters {
     public double FiveYearsAvgerageDividend = new double (); //五年平均殖利率
     public string FiveYearsAvgeragePrice = ""; //五年均價
     public double Price = new double (); //目前價格
+
+    public string K = ""; //K
+    public string D = ""; //D
     public string UpdateDate = ""; //價格更新日
     public double ThisYearAccumulationProfit = new double (); //當年淨利
     public double ThisYearAccumulationOperatingIncome = new double (); //當年營收
@@ -67,7 +70,6 @@ public class parameters {
 
         //抓取股票類別
         getType ();
-
     }
 
     public void getYearName () {
@@ -250,13 +252,15 @@ public class parameters {
         if (type == "TWSE") {
             //上市股票
             try {
-                StrSQL = "select twse007,twse002 from twse_t where twse001 = ?twse001 and twse007 not like '%-%' order by twse002 desc limit 1 ";
+                StrSQL = "select twse007,twse002,twse011,twse012 from twse_t where twse001 = ?twse001 and twse007 not like '%-%' order by twse002 desc limit 1 ";
                 MySqlCommand myCmd = new MySqlCommand (StrSQL, conn);
                 myCmd.Parameters.AddWithValue ("@twse001", no);
                 MySqlDataReader reader = myCmd.ExecuteReader (); //execure the reader
                 while (reader.Read ()) {
                     Price = Double.Parse (reader.GetString (0)); //收盤價-twse007
                     UpdateDate = reader.GetString (1); //更新日-twse002
+                    K = reader.GetString (2); //K-twse011
+                    D = reader.GetString (3); //D-twse012
                 }
                 reader.Close ();
 
@@ -266,13 +270,15 @@ public class parameters {
         } else {
             //上櫃股票
             try {
-                StrSQL = "select tpex007,tpex002 from tpex_t where tpex001 = ?tpex001 and tpex007 not like '%-%' order by tpex002 desc limit 1 ";
+                StrSQL = "select tpex007,tpex002,tpex011,tpex012 from tpex_t where tpex001 = ?tpex001 and tpex007 not like '%-%' order by tpex002 desc limit 1 ";
                 MySqlCommand myCmd = new MySqlCommand (StrSQL, conn);
                 myCmd.Parameters.AddWithValue ("@tpex001", no);
                 MySqlDataReader reader = myCmd.ExecuteReader (); //execure the reader
                 while (reader.Read ()) {
                     Price = Double.Parse (reader.GetString (0)); //收盤價-twse007
                     UpdateDate = reader.GetString (1); //更新日-twse002
+                    K = reader.GetString (2); //K-twse011
+                    D = reader.GetString (3); //D-twse012
                 }
                 reader.Close ();
 

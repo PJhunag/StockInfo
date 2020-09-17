@@ -21,7 +21,7 @@ namespace ReportOfStock {
                 //產生時間
                 //outputFile.WriteLine ("產生時間:" + DateTime.Now);
 
-                string title = "編號,名稱,類別,去年EPS,五年平均EPS,近四季EPS,預測EPS,預測本益比,去年股利,去年股息,預測股利,五年平均殖利率,預測殖利率,合理價位,目前價格,五年均價,營收更新月,推(股利),推(EPS)";
+                string title = "編號,名稱,類別,去年EPS,五年平均EPS,近四季EPS,預測EPS,預測本益比,去年股利,去年股息,預測股利,五年平均殖利率,預測殖利率,合理價位,目前價格,K,D,五年均價,營收更新月,推(股利),推(EPS),推(KD)";
                 outputFile.WriteLine (title);
 
                 //抓取資料並產出報表
@@ -82,6 +82,7 @@ namespace ReportOfStock {
                     //近五年平均殖利率>3.5%
                     //累積成長率每月平均達1%
                     //發放率不大於100%
+                    //K>D且K<35 或 K<25
                     double RevenueIncreaseRatioEveryMonth = (para.RevenueIncreaseRatio - 1) * 100 / DateTime.Now.Month;
                     //Console.WriteLine(RevenueIncreaseRatioEveryMonth);
                     //Console.WriteLine(para.RevenueIncreaseRatio);
@@ -90,11 +91,19 @@ namespace ReportOfStock {
                         preEPS > 0 &&
                         para.FiveYearsAvgerageDividend > 3.5 &&
                         RevenueIncreaseRatioEveryMonth > 1 &&
-                        para.EPSUseRatio < 1
+                        para.EPSUseRatio < 1 
                     ) {
                         attention2 = "Y";
                     } else {
                         attention2 = "N";
+                    }
+
+                    //是否關注(by KD)
+                    string attention3 = "";
+                    if ((Double.Parse (para.K) < 35 && Double.Parse (para.K) > Double.Parse (para.D)) || Double.Parse (para.K) < 25) {
+                        attention3 = "Y";
+                    } else {
+                        attention3 = "N";
                     }
 
                     //股價預測(股票編號,股票名稱,去年EPS,五年平均EPS,預測EPS,去年股利,預測股利,合理價位,目前價格)
@@ -118,10 +127,13 @@ namespace ReportOfStock {
                             preDividendRadio + "," + //預測殖利率
                             goodPrice + "," + //合理價位
                             para.Price + "," + //目前價格
+                            para.K + "," + //目前K
+                            para.D + "," + //目前D
                             para.FiveYearsAvgeragePrice + "," + //五年均價
                             para.OperatingUpdateTime + "," + //營收更新月
                             attention + "," + //關注否(by股利)
-                            attention2; //關注否(by股利)
+                            attention2 + "," + //關注否(by股利)
+                            attention3; //關注否(byKD)
                         //Console.WriteLine (content);
                         outputFile.WriteLine (content);
                     }

@@ -12,12 +12,12 @@ namespace CrawlerForStockEPS {
             conn = db.dbConect ();
 
             //定義此次要運行的項目
-            string type = "KD";
+            string type = "ALL";
 
             //抓取依據
             string src = "stck_t";
 
-            if (args[0] == "high") {
+            if (args.Length > 0) {
                 //此次依據來源為
                 src = "stck_high_priority";
             } else {
@@ -25,14 +25,21 @@ namespace CrawlerForStockEPS {
             }
             Console.WriteLine ("此次依據來源為:" + src);
  
-/*              //抓取上市價格(固定抓取)
+             //抓取上市價格(固定抓取)
             Console.WriteLine ("開始抓每日(上市)價格......");
             ReadTwseStockPrice getTWSEprice = new ReadTwseStockPrice (conn, src);
 
             //抓取上櫃價格(固定抓取)
             Console.WriteLine ("------------------------------------------------------------------------------");
             Console.WriteLine ("開始抓每日(上櫃)價格......");
-            ReadTpexStockPrice getTPEXprice = new ReadTpexStockPrice (conn, src); */
+            ReadTpexStockPrice getTPEXprice = new ReadTpexStockPrice (conn, src);
+
+            //計算KD
+            if (type == "ALL" || type == "KD") {
+                Console.WriteLine ("------------------------------------------------------------------------------");
+                Console.WriteLine ("開始計算KD......");
+                getRSVAndKD getKD = new getRSVAndKD (conn, src);
+            }
 
             //抓取EPS
             if (type == "ALL" || type == "EPS") {
@@ -61,13 +68,6 @@ namespace CrawlerForStockEPS {
                 Console.WriteLine ("開始抓歷史股利......");
                 ReadDividend getDividend = new ReadDividend (conn, src);
             }  
-
-            //抓取KD
-            if (type == "ALL" || type == "KD") {
-                Console.WriteLine ("------------------------------------------------------------------------------");
-                Console.WriteLine ("開始計算KD......");
-                getRSVAndKD getKD = new getRSVAndKD (conn, src);
-            }
             
         }
     }

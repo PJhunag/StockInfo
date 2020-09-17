@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "F:\\VS\\object\\ReportOfStock\\ReportOfStock.csproj": {}
+    "F:\\VS\\object\\StockInfo\\ReportOfStock\\ReportOfStock.csproj": {}
   },
   "projects": {
-    "F:\\VS\\object\\ReportOfStock\\ReportOfStock.csproj": {
+    "F:\\VS\\object\\StockInfo\\ReportOfStock\\ReportOfStock.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\VS\\object\\ReportOfStock\\ReportOfStock.csproj",
+        "projectUniqueName": "F:\\VS\\object\\StockInfo\\ReportOfStock\\ReportOfStock.csproj",
         "projectName": "ReportOfStock",
-        "projectPath": "F:\\VS\\object\\ReportOfStock\\ReportOfStock.csproj",
+        "projectPath": "F:\\VS\\object\\StockInfo\\ReportOfStock\\ReportOfStock.csproj",
         "packagesPath": "C:\\Users\\Tree\\.nuget\\packages\\",
-        "outputPath": "F:\\VS\\object\\ReportOfStock\\obj\\",
+        "outputPath": "F:\\VS\\object\\StockInfo\\ReportOfStock\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"

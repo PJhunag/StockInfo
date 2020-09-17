@@ -230,7 +230,7 @@
             DateTime sTime = DateTime.Now.AddDays (-1);
             DateTime eTime;
 
-            if (DateTime.Now.Hour > 15) {
+            if (DateTime.Now.Hour >= 15) {
                 eTime = DateTime.Now; //如果在下午三點前, 預設資料未出, 只抓到前一天
             } else {
                 eTime = DateTime.Now.AddDays(-1); //如果在下午三點後, 預設資料已出, 抓到當天為止
@@ -258,7 +258,7 @@
             string day;
             string holiday;
             while (eTime >= sTime) {
-                day = sTime.Year.ToString ("0000") + sTime.Month.ToString ("00") + sTime.AddDays(-1).Day.ToString ("00");
+                day = sTime.Year.ToString ("0000") + sTime.Month.ToString ("00") + sTime.Day.ToString ("00");
                 holiday = "N"; //預設為非假日
                 switch (sTime.DayOfWeek.ToString ()) {
                     case "Saturday":

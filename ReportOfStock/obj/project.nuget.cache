@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "2AEJeF8VAfCTRapxax9rzRxtiebUFMKsXf82Oq/0VXBldI3pCODUSAOX31+c0IiUfinRvXWnAfL6ia7zpyb1sA==",
+  "dgSpecHash": "jZmloKLTc59ZSbKC6eov6Kh0mCEj1+l63qCQClKLxC64TQVE7poJQDnT7zyTSBKTQjuKpVKb4p3JxQxg310NOA==",
   "success": true,
-  "projectFilePath": "F:\\VS\\object\\ReportOfStock\\ReportOfStock.csproj",
+  "projectFilePath": "F:\\VS\\object\\StockInfo\\ReportOfStock\\ReportOfStock.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Tree\\.nuget\\packages\\bouncycastle.netcore\\1.8.3\\bouncycastle.netcore.1.8.3.nupkg.sha512",
     "C:\\Users\\Tree\\.nuget\\packages\\google.protobuf\\3.6.1\\google.protobuf.3.6.1.nupkg.sha512",

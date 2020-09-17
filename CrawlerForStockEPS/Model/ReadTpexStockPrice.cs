@@ -267,7 +267,7 @@
             string holiday;
             while (eTime >= sTime) {
                 //日期格式 107(民國)/01/01
-                day = sTime.Year - 1911 + "/" + sTime.Month.ToString ("00") + "/" + sTime.AddDays (-1).Day.ToString ("00");
+                day = sTime.Year - 1911 + "/" + sTime.Month.ToString ("00") + "/" + sTime.Day.ToString ("00");
                 holiday = "N"; //預設為非假日
                 switch (sTime.DayOfWeek.ToString ()) {
                     case "Saturday":

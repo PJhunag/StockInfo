@@ -5957,11 +5957,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "f:\\VS\\object\\ReportOfStock\\ReportOfStock.csproj",
+      "projectUniqueName": "F:\\VS\\object\\StockInfo\\ReportOfStock\\ReportOfStock.csproj",
       "projectName": "ReportOfStock",
-      "projectPath": "f:\\VS\\object\\ReportOfStock\\ReportOfStock.csproj",
+      "projectPath": "F:\\VS\\object\\StockInfo\\ReportOfStock\\ReportOfStock.csproj",
       "packagesPath": "C:\\Users\\Tree\\.nuget\\packages\\",
-      "outputPath": "f:\\VS\\object\\ReportOfStock\\obj\\",
+      "outputPath": "F:\\VS\\object\\StockInfo\\ReportOfStock\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"
