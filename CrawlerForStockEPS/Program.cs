@@ -24,7 +24,7 @@ namespace CrawlerForStockEPS {
                 src = "stck_t";
             }
             Console.WriteLine ("此次依據來源為:" + src);
- 
+
              //抓取上市價格(固定抓取)
             Console.WriteLine ("開始抓每日(上市)價格......");
             ReadTwseStockPrice getTWSEprice = new ReadTwseStockPrice (conn, src);
@@ -67,6 +67,13 @@ namespace CrawlerForStockEPS {
                 Console.WriteLine ("------------------------------------------------------------------------------");
                 Console.WriteLine ("開始抓歷史股利......");
                 ReadDividend getDividend = new ReadDividend (conn, src);
+            }   
+            
+            //抓平均年線
+            if (type == "ALL" || type == "YearLine") {
+                Console.WriteLine ("------------------------------------------------------------------------------");
+                Console.WriteLine ("開始抓平均年線......");
+                getYearLine getYL = new getYearLine (conn, src);
             }  
             
         }

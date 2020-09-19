@@ -81,3 +81,9 @@ public class KD {
     public double K { get; set; }
     public double D { get; set; }
 }
+
+public class YearLine {
+    public string no { get; set; } //編號	
+    public DateTime dt { get; set; } //日期
+    public double yearLine { get; set; }
+}
