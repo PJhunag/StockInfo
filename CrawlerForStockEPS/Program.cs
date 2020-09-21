@@ -17,7 +17,7 @@ namespace CrawlerForStockEPS {
             //抓取依據
             string src = "stck_t";
 
-            if (args.Length > 0) {
+/*             if (args.Length > 0) {
                 //此次依據來源為
                 src = "stck_high_priority";
             } else {
@@ -68,7 +68,7 @@ namespace CrawlerForStockEPS {
                 Console.WriteLine ("開始抓歷史股利......");
                 ReadDividend getDividend = new ReadDividend (conn, src);
             }   
-            
+             */
             //抓平均年線
             if (type == "ALL" || type == "YearLine") {
                 Console.WriteLine ("------------------------------------------------------------------------------");

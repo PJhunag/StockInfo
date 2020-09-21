@@ -51,7 +51,7 @@
             // 先取出需要處理的清單
             try {
 
-                string StrSQL = "select twse001,twse002 from twse_t where twse019 is null order by twse001,twse002 limit 10000";
+                string StrSQL = "select twse001,twse002 from twse_t where twse007 is not null and twse019 is null order by twse001,twse002 limit 10000";
                 MySqlCommand myCmd = new MySqlCommand (StrSQL, conn);
                 MySqlDataReader reader = myCmd.ExecuteReader (); //execure the reader
                 while (reader.Read ()) {
@@ -132,7 +132,7 @@
             // 先取出需要處理的清單
             try {
 
-                string StrSQL = "select tpex001,tpex002 from tpex_t where tpex019 is null order by tpex001,tpex002 limit 10000";
+                string StrSQL = "select tpex001,tpex002 from tpex_t where tpex007 is not null and tpex019 is null order by tpex001,tpex002 limit 10000";
                 MySqlCommand myCmd = new MySqlCommand (StrSQL, conn);
                 MySqlDataReader reader = myCmd.ExecuteReader (); //execure the reader
                 while (reader.Read ()) {
