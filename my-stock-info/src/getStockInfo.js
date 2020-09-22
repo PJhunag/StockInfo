@@ -220,7 +220,7 @@ export async function getEPS(stock_no) {
         }
 
         new_list.yAxis.max = Math.floor(Math.max.apply(null, tmp_array) * 1.1); //求最大值 
-        new_list.yAxis.min = Math.ceil(Math.min.apply(null, tmp_array) * 0.9); //求最小值
+        new_list.yAxis.min = 0; //求最小值
     }
     catch (e) {
         console.log(e); // Network Error
@@ -228,7 +228,7 @@ export async function getEPS(stock_no) {
         console.log(e.code); // undefined
     }
     // console.log( 'log2:'+JSON.stringify(new_list));
-    return JSON.stringify(new_list);
+    return new_list;
 }
 
 //取得月營收紀錄

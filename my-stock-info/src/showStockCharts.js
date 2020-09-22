@@ -177,7 +177,8 @@ class Stock extends Component {
       case "getEPS":
         //刷新EPS
         new_list = await getInfos.getEPS(stock_no);
-        line_chart_list = JSON.parse(new_list);
+        console.log("new_list:"+new_list)
+        line_chart_list = new_list;
         //顯示時間區間選擇
         this.setState(state => ({ show_StockSelect: false }));
         break;
