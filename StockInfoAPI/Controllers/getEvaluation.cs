@@ -89,7 +89,7 @@ namespace StockInfoAPI.Controllers {
             return ev;
         }
 
-        public void getYearName () {
+        private void getYearName () {
             try {
 
                 StrSQL = "select name003 from name_t where name001 = ?name001 and name002 = ?name002 ";
@@ -110,7 +110,7 @@ namespace StockInfoAPI.Controllers {
         }
 
         //取得指定年份營收AND淨利
-        public void getYearAccumulationOperatingIncomeAndYearAccumulationProfit (int year, string type) {
+        private void getYearAccumulationOperatingIncomeAndYearAccumulationProfit (int year, string type) {
             try {
 
                 StrSQL = "select IFNULL(sum(prft004),0),IFNULL(sum(prft008),0) from prft_t where prft001 = ?prft001 and prft002 = ?prft002 ";
@@ -136,7 +136,8 @@ namespace StockInfoAPI.Controllers {
             }
         }
 
-        public void getLastYearEPSAndEPSUseRatioAndStockIncreaseRatio (int year) {
+
+        private void getLastYearEPSAndEPSUseRatioAndStockIncreaseRatio (int year) {
             try {
                 StrSQL = "select divd008,divd009/100,(divd006/10)+1,divd006,divd007 from divd_t where divd001 = ?divd001 and divd002 = ?divd002 ";
                 MySqlCommand myCmd = new MySqlCommand (StrSQL, conn);
@@ -173,7 +174,7 @@ namespace StockInfoAPI.Controllers {
             }
         }
 
-        public void getRevenueIncreaseRatio (int year) {
+        private void getRevenueIncreaseRatio (int year) {
             try {
 
                 StrSQL = "select (opme010/100)+1 from opme_t where opme001 = ?opme001 and opme002 = ?opme002  order by opme003 desc limit 1 ";
@@ -193,7 +194,7 @@ namespace StockInfoAPI.Controllers {
         }
 
         //五年平均EPS &　五年平均殖利率
-        public void getFiveYearsAvgerageEPSandDividend (int year) {
+        private void getFiveYearsAvgerageEPSandDividend (int year) {
             try {
 
                 StrSQL = "select IFNULL(ROUND(AVG(divd008),2),0),IFNULL(ROUND(AVG(divd010),2),0) from divd_t where divd001 = ?divd001 and divd002 between ?divd002s and ?divd002e ";
@@ -214,7 +215,7 @@ namespace StockInfoAPI.Controllers {
         }
 
         //近4季EPS
-        public void getLastFourEPS () {
+        private void getLastFourEPS () {
             try {
 
                 StrSQL = "select epsl004 from epsl_t,stck_t where epsl001 = stck001 and stck003 = 'Y' and epsl001 = ?epsl001 and epsl004 is not null and epsl003 <> 'ALL' order by epsl002 desc,epsl003 desc limit 4 ";
@@ -232,7 +233,7 @@ namespace StockInfoAPI.Controllers {
         }
 
         //最後營收更新年月
-        public void getOperatingUpdateTime () {
+        private void getOperatingUpdateTime () {
             try {
 
                 StrSQL = "select opme002,opme003 from opme_t where opme001=?opme001 order by opme002 desc,opme003 desc limit 1 ";
@@ -248,7 +249,7 @@ namespace StockInfoAPI.Controllers {
                 Console.WriteLine ("Error2 " + ex.Number + " : " + ex.Message);
             }
         }
-        public void getPriceAndUpdateDate () {
+        private void getPriceAndUpdateDate () {
 
             string type = "";
 
@@ -303,7 +304,7 @@ namespace StockInfoAPI.Controllers {
             }
         }
 
-        public void getFiveYearsAvgeragePrice () {
+        private void getFiveYearsAvgeragePrice () {
 
             string type = "";
 
@@ -359,7 +360,7 @@ namespace StockInfoAPI.Controllers {
             ev.FiveYearsAvgeragePrice = prices;
         }
 
-        public void getType () {
+        private void getType () {
 
             //先確定是上市(TWSE)或上櫃(TPEX)
             try {
@@ -374,7 +375,7 @@ namespace StockInfoAPI.Controllers {
                 reader.Close ();
 
             } catch (MySql.Data.MySqlClient.MySqlException ex) {
-                Console.WriteLine(ex.Code);
+                Console.WriteLine (ex.Code);
             }
 
         }

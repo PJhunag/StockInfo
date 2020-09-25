@@ -19,8 +19,9 @@
             //先處理twse的資料
             KDList = getTwseList ();
             int idx = 1;
+            Console.WriteLine ("TWSE KD計算筆數共:"+ KDList.Count);
             foreach (KD newKD in KDList) {
-                Console.WriteLine (newKD.no + ":" + newKD.dt + " 開始計算 " + idx + "/" + KDList.Count);
+                //Console.WriteLine (newKD.no + ":" + newKD.dt + " 開始計算 " + idx + "/" + KDList.Count);
                 idx += 1;
 
                 //日KD(range=9,target=twse010,twse011,twse012)
@@ -37,8 +38,9 @@
             //再處理tpex的資料
             KDList = getTpexList ();
             idx = 1;
+            Console.WriteLine ("TPEX KD計算筆數共:"+ KDList.Count);
             foreach (KD newKD in KDList) {
-                Console.WriteLine (newKD.no + ":" + newKD.dt + " 開始計算 " + idx + "/" + KDList.Count);
+                //Console.WriteLine (newKD.no + ":" + newKD.dt + " 開始計算 " + idx + "/" + KDList.Count);
                 idx += 1;
 
                 //日KD(range=9,target=twse010,twse011,twse012)

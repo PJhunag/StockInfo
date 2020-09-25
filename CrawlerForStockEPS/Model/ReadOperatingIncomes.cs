@@ -211,7 +211,7 @@
             // 進行select (取出有股利資料 但無EPS資料的清單, 區間為當年份)
             try {
 
-                string StrSQL = "select stck001 from " + srcTable + " where stckstus='Y' and stck003='Y' " +
+                string StrSQL = "select stck001 from " + srcTable + " where stckstus='Y' and stck006='Y' " +
                     " and not exists ( select 1 from opme_t where opme001=stck001 and opme002=?opme002 and opme003=?opme003) ";
                 //" and not exists ( select 1 from epsl_t where epsl001=stck001) ";
                 MySqlCommand myCmd = new MySqlCommand (StrSQL, conn);

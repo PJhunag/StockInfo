@@ -19,8 +19,9 @@
             //先處理twse的資料
             YearLineList = getTwseList ();
             int idx = 1;
+            Console.WriteLine ("TWSE 年/月線計算筆數共:"+ YearLineList.Count);
             foreach (YearLine newYL in YearLineList) {
-                Console.WriteLine (newYL.no + ":" + newYL.dt + " 開始計算 " + idx + "/" + YearLineList.Count);
+                //Console.WriteLine (newYL.no + ":" + newYL.dt + " 開始計算 " + idx + "/" + YearLineList.Count);
                 idx += 1;
 
                 getTwseYearLine (newYL, 0, "twse019"); //月前
@@ -32,8 +33,9 @@
             //再處理tpex的資料
             YearLineList = getTpexList ();
             idx = 1;
+            Console.WriteLine ("TPEX 年/月線計算筆數共:"+ YearLineList.Count);
             foreach (YearLine newYL in YearLineList) {
-                Console.WriteLine (newYL.no + ":" + newYL.dt + " 開始計算 " + idx + "/" + YearLineList.Count);
+                //Console.WriteLine (newYL.no + ":" + newYL.dt + " 開始計算 " + idx + "/" + YearLineList.Count);
                 idx += 1;
                 getTpexYearLine (newYL, 0, "tpex019"); //月前
                 getTpexYearLine (newYL, 1, "tpex020"); //一年線
