@@ -3,6 +3,7 @@
     using System.Net;
     using System.Threading;
     using System;
+    using Dapper;
     using HtmlAgilityPack;
     using MySql.Data.MySqlClient;
     using Newtonsoft.Json.Linq;
@@ -120,21 +121,19 @@
             //DeleteFromTWSE ();
         }
 
-        public static void InsertToTWSE (twse newTWSE) {
+        public static void InsertToTWSE (twse newTwse) {
 
             string StrSQL;
 
             //檢查是否為所需資料(存在於主表"+srcTable+"內)
             try {
-                StrSQL = "select count(1) from stock." + srcTable + " where stck001 = ?stck001";
-                MySqlCommand myCmd = new MySqlCommand (StrSQL, conn);
-                myCmd.Parameters.AddWithValue ("@stck001", newTWSE.twse001);
-                MySqlDataReader reader = myCmd.ExecuteReader (); //execure the reader
-                reader.Read ();
-                String s = reader.GetString (0);
-                //Console.WriteLine ("存在否:" + s);
-                reader.Close ();
-                if (s == "0") {
+                //定義確認SQL, 確認是否存在於股票主表內(stck_t)
+                StrSQL = "select count(1) from stock." + srcTable + " where stck001 = @stck001";
+
+                //指定目標股票編號
+                int cnt = conn.ExecuteScalar<int> (StrSQL, new { stck001 = newTwse.twse001 });
+
+                if (cnt == 0) {
                     //不存在, 該筆不處理
                     return;
 
@@ -146,16 +145,14 @@
 
             // 進行select (檢查該筆資料是否已經存在)
             try {
-                StrSQL = "select count(1) from stock.TWSE_t where twse001 = ?twse001 and twse002 = ?twse002 ";
-                MySqlCommand myCmd = new MySqlCommand (StrSQL, conn);
-                myCmd.Parameters.AddWithValue ("@twse001", newTWSE.twse001);
-                myCmd.Parameters.AddWithValue ("@twse002", newTWSE.twse002);
-                MySqlDataReader reader = myCmd.ExecuteReader (); //execure the reader
-                reader.Read ();
-                String s = reader.GetString (0);
-                //Console.WriteLine ("存在否:" + s);
-                reader.Close ();
-                if (s == "1") {
+
+                //定義確認SQL, 確認資料是否已存在
+                StrSQL = "select count(1) from stock.twse_t where Twse001 = @Twse001 and Twse002 = @Twse002 ";
+
+                //指定目標股票編號
+                int cnt = conn.ExecuteScalar<int> (StrSQL, new { Twse001 = newTwse.twse001, Twse002 = newTwse.twse002 });
+
+                if (cnt == 1) {
                     //已存在掠過
                     return;
 
@@ -169,34 +166,32 @@
 
             // 進行insert 
             try {
-                StrSQL = "insert into stock.TWSE_t (twse001,twse002,twse003,twse004,twse005,twse006,twse007,twse008,twse009) " +
-                    " values (?twse001,?twse002,?twse003,?twse004,?twse005,?twse006,?twse007,?twse008,?twse009) ";
-                MySqlCommand myCmd = new MySqlCommand (StrSQL, conn);
+                //先針對資料準備
+                newTwse.twse003 = numTrans (newTwse.twse003);
+                newTwse.twse004 = numTrans (newTwse.twse004);
+                newTwse.twse005 = numTrans (newTwse.twse005);
+                newTwse.twse006 = numTrans (newTwse.twse006);
+                newTwse.twse007 = numTrans (newTwse.twse007);
+                newTwse.twse008 = numTrans (newTwse.twse008);
+                newTwse.twse009 = numTrans (newTwse.twse009);
 
-                myCmd.Parameters.AddWithValue ("@twse001", newTWSE.twse001);
-                myCmd.Parameters.AddWithValue ("@twse002", newTWSE.twse002);
-                myCmd.Parameters.AddWithValue ("@twse003", numTrans (newTWSE.twse003));
-                myCmd.Parameters.AddWithValue ("@twse004", numTrans (newTWSE.twse004));
-                myCmd.Parameters.AddWithValue ("@twse005", numTrans (newTWSE.twse005));
-                myCmd.Parameters.AddWithValue ("@twse006", numTrans (newTWSE.twse006));
-                myCmd.Parameters.AddWithValue ("@twse007", numTrans (newTWSE.twse007));
-                myCmd.Parameters.AddWithValue ("@twse008", numTrans (newTWSE.twse008));
-                myCmd.Parameters.AddWithValue ("@twse009", numTrans (newTWSE.twse009));
+                //準備寫入資料SQL
+                StrSQL = "insert into stock.twse_t (Twse001,Twse002,Twse003,Twse004,Twse005,Twse006,Twse007,Twse008,Twse009) " +
+                    " values (@Twse001,@Twse002,@Twse003,@Twse004,@Twse005,@Twse006,@Twse007,@Twse008,@Twse009) ";
+                conn.Execute (StrSQL, newTwse);
 
-                if (myCmd.ExecuteNonQuery () > 0) {
-                    //Console.WriteLine ("數據新增成功！");
-                }
+
             } catch (MySql.Data.MySqlClient.MySqlException ex) {
                 Console.WriteLine ("Error2 " + ex.Number + " : " + ex.Message);
-                Console.WriteLine ("@twse001:" + newTWSE.twse001);
-                Console.WriteLine ("@twse002:" + newTWSE.twse002);
-                Console.WriteLine ("@twse003:" + newTWSE.twse003);
-                Console.WriteLine ("@twse004:" + newTWSE.twse004);
-                Console.WriteLine ("@twse005:" + newTWSE.twse005);
-                Console.WriteLine ("@twse006:" + newTWSE.twse006);
-                Console.WriteLine ("@twse007:" + newTWSE.twse007);
-                Console.WriteLine ("@twse008:" + newTWSE.twse008);
-                Console.WriteLine ("@twse009:" + newTWSE.twse009);
+                Console.WriteLine ("@twse001:" + newTwse.twse001);
+                Console.WriteLine ("@twse002:" + newTwse.twse002);
+                Console.WriteLine ("@twse003:" + newTwse.twse003);
+                Console.WriteLine ("@twse004:" + newTwse.twse004);
+                Console.WriteLine ("@twse005:" + newTwse.twse005);
+                Console.WriteLine ("@twse006:" + newTwse.twse006);
+                Console.WriteLine ("@twse007:" + newTwse.twse007);
+                Console.WriteLine ("@twse008:" + newTwse.twse008);
+                Console.WriteLine ("@twse009:" + newTwse.twse009);
                 return;
             }
 
@@ -233,7 +228,7 @@
             if (DateTime.Now.Hour >= 15) {
                 eTime = DateTime.Now; //如果在下午三點前, 預設資料未出, 只抓到前一天
             } else {
-                eTime = DateTime.Now.AddDays(-1); //如果在下午三點後, 預設資料已出, 抓到當天為止
+                eTime = DateTime.Now.AddDays (-1); //如果在下午三點後, 預設資料已出, 抓到當天為止
             }
 
             // 進行select (取出有股利資料 但無EPS資料的清單, 區間為當年份)
@@ -244,7 +239,7 @@
                 MySqlCommand myCmd = new MySqlCommand (StrSQL, conn);
                 MySqlDataReader reader = myCmd.ExecuteReader (); //execure the reader
                 while (reader.Read ()) {
-                    sTime = DateTime.Parse (reader.GetString (0)).AddDays(1);
+                    sTime = DateTime.Parse (reader.GetString (0)).AddDays (1);
                     //Console.WriteLine(no);
                 }
                 reader.Close ();

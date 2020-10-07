@@ -74,3 +74,4 @@ F:\VS\object\StockInfo\CrawlerForStockEPS\obj\Debug\netcoreapp3.1\CrawlerForStoc
 F:\VS\object\StockInfo\CrawlerForStockEPS\obj\Debug\netcoreapp3.1\CrawlerForStockEPS.dll
 F:\VS\object\StockInfo\CrawlerForStockEPS\obj\Debug\netcoreapp3.1\CrawlerForStockEPS.pdb
 F:\VS\object\StockInfo\CrawlerForStockEPS\obj\Debug\netcoreapp3.1\CrawlerForStockEPS.genruntimeconfig.cache
+F:\VS\object\StockInfo\CrawlerForStockEPS\bin\Debug\netcoreapp3.1\Dapper.dll

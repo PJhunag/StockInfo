@@ -3,6 +3,7 @@
     using System.Net;
     using System.Threading;
     using System;
+    using Dapper;
     using MySql.Data.MySqlClient;
 
     public class ReadTpexStockPrice {
@@ -84,16 +85,16 @@
                         newTpex.tpex005 = stockInfo[5].Replace ("\"", "");
                         newTpex.tpex006 = stockInfo[6].Replace ("\"", "");
                         newTpex.tpex007 = stockInfo[2].Replace ("\"", "");
-                         
-/*                                             Console.WriteLine ("Tpex001:" + newTpex.tpex001);
-                                            Console.WriteLine ("Tpex002:" + newTpex.tpex002);
-                                            Console.WriteLine ("Tpex003:" + newTpex.tpex003);
-                                            Console.WriteLine ("Tpex004:" + newTpex.tpex004);
-                                            Console.WriteLine ("Tpex005:" + newTpex.tpex005);
-                                            Console.WriteLine ("Tpex006:" + newTpex.tpex006);
-                                            Console.WriteLine ("Tpex007:" + newTpex.tpex007);
-                                            Console.WriteLine ("Tpex008:" + newTpex.tpex008);
-                                            Console.WriteLine ("Tpex009:" + newTpex.tpex009);  */
+
+                        /*                                             Console.WriteLine ("Tpex001:" + newTpex.tpex001);
+                                                                    Console.WriteLine ("Tpex002:" + newTpex.tpex002);
+                                                                    Console.WriteLine ("Tpex003:" + newTpex.tpex003);
+                                                                    Console.WriteLine ("Tpex004:" + newTpex.tpex004);
+                                                                    Console.WriteLine ("Tpex005:" + newTpex.tpex005);
+                                                                    Console.WriteLine ("Tpex006:" + newTpex.tpex006);
+                                                                    Console.WriteLine ("Tpex007:" + newTpex.tpex007);
+                                                                    Console.WriteLine ("Tpex008:" + newTpex.tpex008);
+                                                                    Console.WriteLine ("Tpex009:" + newTpex.tpex009);  */
 
                         InsertToTpex (newTpex);
                     }
@@ -121,17 +122,13 @@
 
             //檢查是否為所需資料(存在於主表"+srcTable+"內)
             try {
-                StrSQL = "select count(1) from stock." + srcTable + " where stck001 = ?stck001";
-                MySqlCommand myCmd = new MySqlCommand (StrSQL, conn);
-                myCmd.Parameters.AddWithValue ("@stck001", newTpex.tpex001);
-                MySqlDataReader reader = myCmd.ExecuteReader (); //execure the reader
-                reader.Read ();
-                String s = reader.GetString (0);
-                //Console.WriteLine ("StrSQL:" + StrSQL);
-                //Console.WriteLine ("stck001:" + newTpex.tpex001);
-                //Console.WriteLine ("存在否1:" + s);
-                reader.Close ();
-                if (s == "0") {
+                //定義確認SQL, 確認是否存在於股票主表內(stck_t)
+                StrSQL = "select count(1) from stock." + srcTable + " where stck001 = @stck001";
+
+                //指定目標股票編號
+                int cnt = conn.ExecuteScalar<int> (StrSQL, new { stck001 = newTpex.tpex001 });
+
+                if (cnt == 0) {
                     //不存在, 該筆不處理
                     return;
 
@@ -143,16 +140,14 @@
 
             // 進行select (檢查該筆資料是否已經存在)
             try {
-                StrSQL = "select count(1) from stock.tpex_t where Tpex001 = ?Tpex001 and Tpex002 = ?Tpex002 ";
-                MySqlCommand myCmd = new MySqlCommand (StrSQL, conn);
-                myCmd.Parameters.AddWithValue ("@Tpex001", newTpex.tpex001);
-                myCmd.Parameters.AddWithValue ("@Tpex002", newTpex.tpex002);
-                MySqlDataReader reader = myCmd.ExecuteReader (); //execure the reader
-                reader.Read ();
-                String s = reader.GetString (0);
-                //Console.WriteLine ("存在否2:" + s);
-                reader.Close ();
-                if (s == "1") {
+
+                //定義確認SQL, 確認資料是否已存在
+                StrSQL = "select count(1) from stock.tpex_t where Tpex001 = @Tpex001 and Tpex002 = @Tpex002 ";
+
+                //指定目標股票編號
+                int cnt = conn.ExecuteScalar<int> (StrSQL, new { Tpex001 = newTpex.tpex001, Tpex002 = newTpex.tpex002 });
+
+                if (cnt == 1) {
                     //已存在掠過
                     return;
 
@@ -166,31 +161,24 @@
 
             // 進行insert 
             try {
-                StrSQL = "insert into stock.tpex_t (Tpex001,Tpex002,Tpex003,Tpex004,Tpex005,Tpex006,Tpex007,Tpex008,Tpex009) " +
-                    " values (?Tpex001,?Tpex002,?Tpex003,?Tpex004,?Tpex005,?Tpex006,?Tpex007,?Tpex008,?Tpex009) ";
-                MySqlCommand myCmd = new MySqlCommand (StrSQL, conn);
-                myCmd.Parameters.AddWithValue ("@Tpex001", newTpex.tpex001);
-                myCmd.Parameters.AddWithValue ("@Tpex002", newTpex.tpex002);
-                myCmd.Parameters.AddWithValue ("@Tpex003", numTrans (newTpex.tpex003));
-                myCmd.Parameters.AddWithValue ("@Tpex004", numTrans (newTpex.tpex004));
-                myCmd.Parameters.AddWithValue ("@Tpex005", numTrans (newTpex.tpex005));
-                myCmd.Parameters.AddWithValue ("@Tpex006", numTrans (newTpex.tpex006));
-                myCmd.Parameters.AddWithValue ("@Tpex007", numTrans (newTpex.tpex007));
-                //沒有出現 --- 
-                newTpex.tpex007 = numTrans (newTpex.tpex007);
+
+                //先針對資料準備
+                newTpex.tpex003 = numTrans (newTpex.tpex003);
                 newTpex.tpex004 = numTrans (newTpex.tpex004);
+                newTpex.tpex005 = numTrans (newTpex.tpex005);
+                newTpex.tpex006 = numTrans (newTpex.tpex006);
+                newTpex.tpex007 = numTrans (newTpex.tpex007);
+                newTpex.tpex009 = numTrans (newTpex.tpex009);
+
+                //計算差價
                 if (!string.IsNullOrEmpty (newTpex.tpex007) && !string.IsNullOrEmpty (newTpex.tpex004)) {
                     newTpex.tpex008 = (Double.Parse (newTpex.tpex007) - Double.Parse (newTpex.tpex004)).ToString ();
                 }
-/*                 Console.WriteLine("newTpex.tpex007:"+newTpex.tpex007);
-                Console.WriteLine("newTpex.tpex004:"+newTpex.tpex004);
-                Console.WriteLine("newTpex.tpex008:"+newTpex.tpex008); */
-                myCmd.Parameters.AddWithValue ("@Tpex008", newTpex.tpex008);
-                myCmd.Parameters.AddWithValue ("@Tpex009", numTrans (newTpex.tpex009));
 
-                if (myCmd.ExecuteNonQuery () > 0) {
-                    //Console.WriteLine ("數據新增成功！");
-                }
+                //準備寫入資料SQL
+                StrSQL = "insert into stock.tpex_t (Tpex001,Tpex002,Tpex003,Tpex004,Tpex005,Tpex006,Tpex007,Tpex008,Tpex009) " +
+                    " values (@Tpex001,@Tpex002,@Tpex003,@Tpex004,@Tpex005,@Tpex006,@Tpex007,@Tpex008,@Tpex009) ";
+                conn.Execute (StrSQL, newTpex);
             } catch (MySql.Data.MySqlClient.MySqlException ex) {
                 Console.WriteLine ("@tpex001:" + newTpex.tpex001);
                 Console.WriteLine ("@tpex002:" + newTpex.tpex002);
@@ -236,26 +224,21 @@
             DateTime eTime;
 
             if (DateTime.Now.Hour >= 15) {
-                Console.WriteLine("抓今天");
+                Console.WriteLine ("抓今天");
                 eTime = DateTime.Now; //如果在下午三點前, 預設資料未出, 只抓到前一天
             } else {
-                Console.WriteLine("抓昨天");
+                Console.WriteLine ("抓昨天");
                 eTime = DateTime.Now.AddDays (-1); //如果在下午三點後, 預設資料已出, 抓到當天為止
             }
-            
 
             // 進行select (取出有股利資料 但無EPS資料的清單, 區間為當年份)
             try {
-
+                //定義確認SQL, 取出最後更新日
                 string StrSQL = "select max(Tpex002) from Tpex_t where tpex001 = '1240'";
-                //" and not exists ( select 1 from epsl_t where epsl001=stck001) ";
-                MySqlCommand myCmd = new MySqlCommand (StrSQL, conn);
-                MySqlDataReader reader = myCmd.ExecuteReader (); //execure the reader
-                while (reader.Read ()) {
-                    sTime = DateTime.Parse (reader.GetString (0)).AddDays (1);
-                    //Console.WriteLine(no);
-                }
-                reader.Close ();
+
+                //從最後更新日+1開始抓取
+                string dt = conn.ExecuteScalar<string> (StrSQL);
+                sTime = DateTime.Parse (dt).AddDays (1);
 
             } catch (MySql.Data.MySqlClient.MySqlException ex) {
                 Console.WriteLine ("Error2 " + ex.Number + " : " + ex.Message);
