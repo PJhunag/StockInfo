@@ -1,6 +1,6 @@
 ﻿using System;
 using MySql.Data.MySqlClient;
-//股利爬蟲
+
 namespace CrawlerForStockEPS {
     class Program {
 
@@ -25,6 +25,7 @@ namespace CrawlerForStockEPS {
             }
             Console.WriteLine ("此次依據來源為:" + src);
 
+            //------------------日更新------------------
             //抓取上市價格(固定抓取)
             Console.WriteLine ("開始抓每日(上市)價格......");
             ReadTwseStockPrice getTWSEprice = new ReadTwseStockPrice (conn, src);
@@ -34,27 +35,21 @@ namespace CrawlerForStockEPS {
             Console.WriteLine ("開始抓每日(上櫃)價格......");
             ReadTpexStockPrice getTPEXprice = new ReadTpexStockPrice (conn, src);
 
-            //計算KD
-            if (type == "ALL" || type == "KD") {
-                Console.WriteLine ("------------------------------------------------------------------------------");
-                Console.WriteLine ("開始計算KD......");
-                getRSVAndKD getKD = new getRSVAndKD (conn, src);
-            }
+            /*             //計算KD
+                        if (type == "ALL" || type == "KD") {
+                            Console.WriteLine ("------------------------------------------------------------------------------");
+                            Console.WriteLine ("開始計算KD......");
+                            getRSVAndKD getKD = new getRSVAndKD (conn, src);
+                        }
 
-            //抓平均年線
-            if (type == "ALL" || type == "YearLine") {
-                Console.WriteLine ("------------------------------------------------------------------------------");
-                Console.WriteLine ("開始抓平均年線......");
-                getYearLine getYL = new getYearLine (conn, src);
-            }
+                        //抓平均年線
+                        if (type == "ALL" || type == "YearLine") {
+                            Console.WriteLine ("------------------------------------------------------------------------------");
+                            Console.WriteLine ("開始抓平均年線......");
+                            getYearLine getYL = new getYearLine (conn, src);
+                        } */
 
-            //抓取EPS
-            if (type == "ALL" || type == "EPS") {
-                Console.WriteLine ("------------------------------------------------------------------------------");
-                Console.WriteLine ("開始抓取EPS......");
-                ReadEPS getEPSs = new ReadEPS (conn, src);
-            }
-
+            //------------------月更新------------------
             //抓取營收
             if (type == "ALL" || type == "OperatingIncomes") {
                 Console.WriteLine ("------------------------------------------------------------------------------");
@@ -69,6 +64,15 @@ namespace CrawlerForStockEPS {
                 ReadProfit getProfit = new ReadProfit (conn, src);
             }
 
+            //------------------季更新------------------
+            //抓取EPS
+            if (type == "ALL" || type == "EPS") {
+                Console.WriteLine ("------------------------------------------------------------------------------");
+                Console.WriteLine ("開始抓取EPS......");
+                ReadEPS getEPSs = new ReadEPS (conn, src);
+            }
+
+            //------------------年更新------------------
             //抓取歷史股利
             if (type == "ALL" || type == "Dividend") {
                 Console.WriteLine ("------------------------------------------------------------------------------");
