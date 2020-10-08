@@ -168,6 +168,11 @@
                 newTpex.tpex005 = numTrans (newTpex.tpex005);
                 newTpex.tpex006 = numTrans (newTpex.tpex006);
                 newTpex.tpex007 = numTrans (newTpex.tpex007);
+                //沒有收盤價代表資料異常, 返回不處理
+                if(newTpex.tpex007 is null)
+                {
+                    return;
+                }
                 newTpex.tpex009 = numTrans (newTpex.tpex009);
 
                 //計算差價

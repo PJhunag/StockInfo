@@ -37,19 +37,19 @@ namespace CrawlerForStockEPS {
                 Console.WriteLine ("開始抓每日(上櫃)價格......");
                 ReadTpexStockPrice getTPEXprice = new ReadTpexStockPrice (conn, src);
 
-                /*             //計算KD
-                            if (type == "ALL" || type == "KD") {
-                                Console.WriteLine ("------------------------------------------------------------------------------");
-                                Console.WriteLine ("開始計算KD......");
-                                getRSVAndKD getKD = new getRSVAndKD (conn, src);
-                            }
+                //計算KD
+                if (type == "ALL" || type == "KD") {
+                    Console.WriteLine ("------------------------------------------------------------------------------");
+                    Console.WriteLine ("開始計算KD......");
+                    getRSVAndKD getKD = new getRSVAndKD (conn, src);
+                }
 
-                            //抓平均年線
-                            if (type == "ALL" || type == "YearLine") {
-                                Console.WriteLine ("------------------------------------------------------------------------------");
-                                Console.WriteLine ("開始抓平均年線......");
-                                getYearLine getYL = new getYearLine (conn, src);
-                            } */
+                //抓平均年線
+                if (type == "ALL" || type == "YearLine") {
+                    Console.WriteLine ("------------------------------------------------------------------------------");
+                    Console.WriteLine ("開始抓平均年線......");
+                    getYearLine getYL = new getYearLine (conn, src);
+                }
 
                 //------------------月更新------------------
                 //抓取營收
